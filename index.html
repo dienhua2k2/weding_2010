@@ -1671,7 +1671,7 @@ let isMusicPlaying = false;
 
 function startMusic() {
   if (!bgMusic || isMusicPlaying) return;
-  bgMusic.volume = 0.55;
+  bgMusic.volume = 0.65;
   const playPromise = bgMusic.play();
   if (playPromise !== undefined) {
     playPromise.then(() => {
@@ -1692,6 +1692,7 @@ function toggleMusic() {
     musicToggleBtn?.classList.remove('playing');
     showToast('Âm nhạc ⏸️', 'Đã tạm dừng: Đến Khi Nào – Khắc Việt', '🎵');
   } else {
+    bgMusic.volume = 0.65;
     bgMusic.play().then(() => {
       isMusicPlaying = true;
       musicToggleBtn?.classList.add('playing');
@@ -1701,6 +1702,15 @@ function toggleMusic() {
     });
   }
 }
+
+// Bắt sự kiện chạm/click đầu tiên trên màn hình để mở khóa âm thanh ngay lập tức
+function unlockAudioOnFirstTouch() {
+  if (!isMusicPlaying) {
+    startMusic();
+  }
+}
+window.addEventListener('click', unlockAudioOnFirstTouch, { once: true, passive: true });
+window.addEventListener('touchstart', unlockAudioOnFirstTouch, { once: true, passive: true });
 
 /* ═══════════════════════════════════
    5. ENVELOPE MODAL
