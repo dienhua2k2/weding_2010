@@ -914,6 +914,297 @@
       transform: scale(1);
     }
 
+    /* Floating Music Control Button */
+    .music-toggle {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 1020;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255, 133, 161, 0.45);
+      background: rgba(30, 0, 20, 0.85);
+      box-shadow: 0 4px 20px rgba(255, 77, 109, 0.45);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+      touch-action: manipulation;
+    }
+    .music-toggle:hover {
+      transform: scale(1.08);
+      box-shadow: 0 6px 25px rgba(255, 77, 109, 0.7);
+    }
+    .music-toggle:active {
+      transform: scale(0.9);
+    }
+    .music-disc {
+      display: inline-block;
+      font-size: 1.3rem;
+      transition: transform 0.3s ease;
+    }
+    .music-toggle.playing .music-disc {
+      animation: spinDisc 3.5s linear infinite;
+    }
+    @keyframes spinDisc {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    /* ══════════════════════════
+       AMBIENT PHOTO BACKDROP & MEMORY CARDS
+    ══════════════════════════ */
+    .ambient-photo-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .ambient-slide {
+      position: absolute;
+      inset: -30px;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      filter: blur(14px) brightness(0.48) saturate(1.25);
+      transition: opacity 2.2s ease-in-out, transform 8s ease;
+      transform: scale(1.02);
+    }
+    .ambient-slide.active {
+      opacity: 0.32;
+      transform: scale(1.08);
+    }
+
+    .memory-single-wrap {
+      display: flex;
+      justify-content: center;
+      margin: 2.2rem 0;
+      perspective: 1000px;
+    }
+    .hero-memory-wrap {
+      margin-top: 1.8rem;
+      display: flex;
+      justify-content: center;
+      perspective: 1000px;
+    }
+    .memory-polaroid {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1.5px solid rgba(255, 133, 161, 0.4);
+      border-radius: 20px;
+      padding: 10px 10px 14px 10px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.55), 0 0 25px rgba(255, 77, 109, 0.25);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      cursor: pointer;
+      transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.3, 1), box-shadow 0.35s ease;
+      max-width: 270px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+      touch-action: manipulation;
+    }
+    .hero-polaroid {
+      transform: rotate(-2deg);
+      max-width: 250px;
+    }
+    .polaroid-tilt-right {
+      transform: rotate(3deg);
+    }
+    .polaroid-tilt-left {
+      transform: rotate(-3deg);
+    }
+    .memory-polaroid:hover {
+      transform: translateY(-8px) scale(1.04) rotate(0deg) !important;
+      box-shadow: 0 20px 50px rgba(255, 77, 109, 0.5), 0 0 35px rgba(255, 133, 161, 0.45);
+      z-index: 10;
+    }
+    .polaroid-pin {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.3rem;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));
+      z-index: 5;
+    }
+    .memory-polaroid img {
+      width: 100%;
+      height: 310px;
+      object-fit: cover;
+      border-radius: 14px;
+      display: block;
+      filter: saturate(1.06) contrast(1.02);
+      transition: filter 0.3s;
+    }
+    .memory-polaroid:hover img {
+      filter: saturate(1.15) contrast(1.05);
+    }
+    .memory-caption {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.25rem;
+      color: #ffd6e0;
+      margin-top: 0.75rem;
+      line-height: 1.35;
+      text-shadow: 0 0 10px rgba(255, 77, 109, 0.5);
+    }
+    .memory-tag {
+      font-size: 0.72rem;
+      color: rgba(255, 179, 198, 0.7);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 0.2rem;
+    }
+
+    /* Photo Lightbox */
+    .photo-lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 0, 8, 0.92);
+      z-index: 1050;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .photo-lightbox.show {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .lightbox-frame {
+      max-width: 440px;
+      width: 100%;
+      background: rgba(30, 0, 20, 0.9);
+      border: 1.5px solid #ff85a1;
+      border-radius: 24px;
+      padding: 14px 14px 18px 14px;
+      box-shadow: 0 20px 60px rgba(255, 77, 109, 0.5);
+      text-align: center;
+      position: relative;
+      transform: scale(0.92);
+      transition: transform 0.35s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    }
+    .photo-lightbox.show .lightbox-frame {
+      transform: scale(1);
+    }
+    .lightbox-frame img {
+      width: 100%;
+      max-height: 68vh;
+      object-fit: contain;
+      border-radius: 16px;
+      display: block;
+    }
+    .lightbox-caption {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.5rem;
+      color: #ffd6e0;
+      margin-top: 0.85rem;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: -14px;
+      right: -14px;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ff4d6d, #ff85a1);
+      border: 2px solid #fff;
+      color: #fff;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    }
+
+    /* ══════════════════════════
+       HEART 100 GRAND OVERLAY (HIỆU ỨNG VẼ TRÁI TIM TOÀN MÀN HÌNH)
+    ══════════════════════════ */
+    .heart-100-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1200;
+      background: radial-gradient(ellipse at center, rgba(35, 0, 22, 0.96) 0%, rgba(10, 0, 8, 0.98) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+    .heart-100-overlay.show {
+      opacity: 1;
+      pointer-events: all;
+    }
+    #heart-draw-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .heart-100-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 1.5rem;
+      max-width: 480px;
+      width: 100%;
+      opacity: 0;
+      transform: scale(0.65);
+      transition: opacity 0.8s ease, transform 0.9s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    }
+    .heart-100-content.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .heart-100-icon {
+      font-size: 3.6rem;
+      margin-bottom: 0.5rem;
+      animation: heartBeat 0.8s ease-in-out infinite;
+      filter: drop-shadow(0 0 25px rgba(255, 77, 109, 0.9));
+    }
+    .heart-100-title {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(2.8rem, 9vw, 5.2rem);
+      line-height: 1.15;
+      background: linear-gradient(135deg, #ffffff 0%, #ff85a1 40%, #ff4d6d 70%, #f7c948 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 35px rgba(255, 77, 109, 0.8));
+      margin-bottom: 0.5rem;
+      animation: titleGlow 2.5s ease-in-out infinite alternate;
+    }
+    .heart-100-sub {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.1rem, 3.5vw, 1.6rem);
+      letter-spacing: 0.08em;
+      color: #ffd6e0;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+    .heart-100-note {
+      font-size: clamp(0.9rem, 2.4vw, 1.05rem);
+      color: #ffb3c6cc;
+      font-style: italic;
+    }
+
     /* Responsive adjustments */
     @media (max-width: 600px) {
       .card-3d { padding: 2rem 1.4rem; }
@@ -927,6 +1218,13 @@
   </style>
 </head>
 <body>
+
+<!-- BACKGROUND MUSIC & TOGGLE -->
+<audio id="bg-music" src="./music.mp3" loop preload="auto" playsinline webkit-playsinline></audio>
+
+<button id="music-toggle-btn" class="music-toggle" onclick="toggleMusic()" aria-label="Bật hoặc tạm dừng nhạc nền" title="Bật/Tắt: Đến Khi Nào – Khắc Việt 🎵">
+  <span class="music-disc" id="music-disc">🎵</span>
+</button>
 
 <!-- IN-APP TOAST NOTIFICATION -->
 <div class="inapp-toast" id="inapp-toast">
@@ -973,6 +1271,14 @@
   </div>
 </div>
 
+<!-- AMBIENT DYNAMIC PHOTO BACKDROP (CHÌM NHẸ DƯỚI NỀN SAO 3D) -->
+<div class="ambient-photo-backdrop" id="ambient-backdrop">
+  <div class="ambient-slide active" style="background-image: url('./0265f60a2413a44dfd021.jpg');"></div>
+  <div class="ambient-slide" style="background-image: url('./153be476366fb631ef7e2.jpg');"></div>
+  <div class="ambient-slide" style="background-image: url('./782cda89079087cede813.jpg');"></div>
+  <div class="ambient-slide" style="background-image: url('./c345ddea00f380add9e24.jpg');"></div>
+</div>
+
 <!-- CANVAS 3D BACKGROUND -->
 <canvas id="bg-canvas"></canvas>
 
@@ -997,6 +1303,16 @@
       chân thật nhất trong lòng anh – rằng em là điều tuyệt vời nhất
       đã xảy ra với cuộc đời anh.
     </p>
+
+    <!-- HERO MEMORY POLAROID -->
+    <div class="hero-memory-wrap" onclick="viewPhoto('./0265f60a2413a44dfd021.jpg', 'Nụ cười của người anh yêu 💖')">
+      <div class="memory-polaroid hero-polaroid">
+        <div class="polaroid-pin">📍</div>
+        <img src="./0265f60a2413a44dfd021.jpg" alt="Ngọc Anh" loading="lazy" />
+        <div class="memory-caption">Khoảnh khắc làm anh say đắm 💖</div>
+        <div class="memory-tag">Chạm để xem ảnh ✨</div>
+      </div>
+    </div>
 
     <div class="scroll-hint">
       <svg viewBox="0 0 24 24" fill="none" stroke="#ff85a1" stroke-width="2">
@@ -1034,6 +1350,16 @@
         <p>Anh yêu cả những lúc em giận – bởi vì chỉ người quan tâm thật sự mới biết giận đúng chỗ. Và anh biết, sau mỗi lần như thế, tình cảm của chúng ta lại thêm vững chắc hơn một chút.</p>
       </div>
     </div>
+
+    <!-- MEMORY POLAROID 2 -->
+    <div class="memory-single-wrap">
+      <div class="memory-polaroid polaroid-tilt-right" onclick="viewPhoto('./153be476366fb631ef7e2.jpg', 'Nụ cười của em là ánh sáng của đời anh ✨')">
+        <div class="polaroid-pin">🌸</div>
+        <img src="./153be476366fb631ef7e2.jpg" alt="Ngọc Anh" loading="lazy" />
+        <div class="memory-caption">Nụ cười sưởi ấm tim anh ✨</div>
+        <div class="memory-tag">20/10/2026 · Ngọc Anh</div>
+      </div>
+    </div>
   </section>
 
   <!-- ══ SECTION 2: LỜI XIN LỖI & MONG MUỐN LẮNG NGHE (MỚI THÊM) ══ -->
@@ -1051,6 +1377,16 @@
         <p>Anh nhận ra rằng điều em cần đôi khi không phải là những lời giải thích to tát, mà chỉ là một cái ôm thật chặt và một người thực sự lắng nghe. <span class="highlight">Từ hôm nay, anh muốn lắng nghe em nhiều hơn nữa.</span></p>
         
         <p>Dù là chuyện vui nhỏ xíu trong ngày, chuyện bực mình ở chỗ làm, hay những nỗi buồn em chưa từng kể với ai... em cứ nói hết với anh nhé. Anh sẽ luôn ở đây, đặt điện thoại xuống, nhìn vào mắt em và lắng nghe bằng cả tấm lòng này.</p>
+      </div>
+    </div>
+
+    <!-- MEMORY POLAROID 3 -->
+    <div class="memory-single-wrap">
+      <div class="memory-polaroid polaroid-tilt-left" onclick="viewPhoto('./782cda89079087cede813.jpg', 'Bình yên nhất là khi có em bên cạnh 🕊️')">
+        <div class="polaroid-pin">🕊️</div>
+        <img src="./782cda89079087cede813.jpg" alt="Ngọc Anh" loading="lazy" />
+        <div class="memory-caption">Bình yên nhất là bên em 🕊️</div>
+        <div class="memory-tag">Mỗi ngày thêm trân quý 🤍</div>
       </div>
     </div>
 
@@ -1096,6 +1432,16 @@
         <p>Em đẹp – không chỉ bằng mắt thường. Em đẹp ở cái cách em <em>yêu thương</em>, ở sự ấm áp em mang đến cho những người quanh em, ở tấm lòng em dành cho người em quan tâm. Đó là thứ vẻ đẹp <span class="highlight">không bao giờ phai</span>.</p>
         <p>Và anh – anh tự hào lắm vì được gọi là người của em. Hôm nay, ngày 20/10, anh không tặng em vật chất xa hoa. Anh tặng em điều chân thật nhất: <span class="highlight">trái tim anh, đang đập – vì em.</span></p>
         <div class="quote-block">"Nếu được chọn lại, giữa tất cả mọi người trên thế gian này, anh vẫn sẽ chọn em. Lần thứ nhất, lần thứ nghìn, và mãi mãi."</div>
+      </div>
+    </div>
+
+    <!-- MEMORY POLAROID 4 -->
+    <div class="memory-single-wrap">
+      <div class="memory-polaroid polaroid-tilt-right" onclick="viewPhoto('./c345ddea00f380add9e24.jpg', 'Công chúa tuyệt vời nhất của anh 🌸')">
+        <div class="polaroid-pin">👑</div>
+        <img src="./c345ddea00f380add9e24.jpg" alt="Ngọc Anh" loading="lazy" />
+        <div class="memory-caption">Công chúa tuyệt vời nhất của anh 🌸</div>
+        <div class="memory-tag">Yêu em mãi mãi 💖</div>
       </div>
     </div>
   </section>
@@ -1181,6 +1527,32 @@
         Đóng lại ✨
       </button>
     </div>
+  </div>
+</div>
+
+<!-- PHOTO LIGHTBOX MODAL -->
+<div class="photo-lightbox" id="photo-lightbox" onclick="closeLightbox()">
+  <div class="lightbox-frame" onclick="event.stopPropagation()">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <img id="lightbox-img" src="" alt="Ngọc Anh" />
+    <div class="lightbox-caption" id="lightbox-caption"></div>
+    <p style="color:rgba(255,179,198,0.7); font-size:0.85rem; margin-top:0.35rem;">Trung Điển YB 💖 Ngọc Anh</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     HEART 100 GRAND OVERLAY (VẼ TRÁI TIM TOÀN MÀN HÌNH)
+══════════════════════════════════ -->
+<div class="heart-100-overlay" id="heart-100-overlay">
+  <canvas id="heart-draw-canvas"></canvas>
+  <div class="heart-100-content" id="heart-100-content">
+    <div class="heart-100-icon">💖</div>
+    <h1 class="heart-100-title" id="heart-100-title">anh yêu emm ❤</h1>
+    <p class="heart-100-sub">TRUNG ĐIỂN YB &nbsp;💕&nbsp; NGỌC ANH</p>
+    <p class="heart-100-note">100 nhịp đập trọn vẹn dành riêng cho em ✨</p>
+    <button class="btn-primary" style="margin-top:1.5rem;" onclick="closeHeart100Overlay()">
+      Tiếp tục ngắm nhìn 🌸
+    </button>
   </div>
 </div>
 
@@ -1291,7 +1663,47 @@ function triggerSystemNotification(title, body) {
 }
 
 /* ═══════════════════════════════════
-   4. ENVELOPE MODAL
+   4. BACKGROUND MUSIC PLAYER
+═══════════════════════════════════ */
+const bgMusic = document.getElementById('bg-music');
+const musicToggleBtn = document.getElementById('music-toggle-btn');
+let isMusicPlaying = false;
+
+function startMusic() {
+  if (!bgMusic || isMusicPlaying) return;
+  bgMusic.volume = 0.55;
+  const playPromise = bgMusic.play();
+  if (playPromise !== undefined) {
+    playPromise.then(() => {
+      isMusicPlaying = true;
+      musicToggleBtn?.classList.add('playing');
+    }).catch(e => {
+      console.log('Audio autoplay waiting for user interaction:', e);
+    });
+  }
+}
+
+function toggleMusic() {
+  if (!bgMusic) return;
+  vibrateMobile([30]);
+  if (isMusicPlaying) {
+    bgMusic.pause();
+    isMusicPlaying = false;
+    musicToggleBtn?.classList.remove('playing');
+    showToast('Âm nhạc ⏸️', 'Đã tạm dừng: Đến Khi Nào – Khắc Việt', '🎵');
+  } else {
+    bgMusic.play().then(() => {
+      isMusicPlaying = true;
+      musicToggleBtn?.classList.add('playing');
+      showToast('Âm nhạc ▶️', 'Đang phát: Đến Khi Nào – Khắc Việt 🎶', '🎵');
+    }).catch(err => {
+      showToast('Âm nhạc', 'Chạm vào màn hình để bắt đầu phát nhạc nhé 💖', '🎵');
+    });
+  }
+}
+
+/* ═══════════════════════════════════
+   5. ENVELOPE MODAL
 ═══════════════════════════════════ */
 document.body.style.overflow = 'hidden';
 let envelopeOpened = false;
@@ -1300,6 +1712,7 @@ function openEnvelope() {
   if (envelopeOpened) return;
   envelopeOpened = true;
 
+  startMusic();
   playChime();
   vibrateMobile([40, 60, 40]);
 
@@ -1315,6 +1728,7 @@ function openEnvelope() {
 
 function enterPage(e) {
   if (e) e.stopPropagation();
+  startMusic();
   playChime();
   vibrateMobile([60]);
 
@@ -1410,8 +1824,11 @@ function sendViaZaloOrShare() {
   closeSuccessModal();
 }
 
-/* Heart Tap Counter */
+/* Heart Tap Counter & 100 Hearts Grand Event */
 let heartCount = 99;
+let isDrawingHeart100 = false;
+let heartDrawAnimId = null;
+
 function tapHeartPulse(e) {
   heartCount++;
   document.getElementById('heart-counter').textContent = heartCount;
@@ -1425,11 +1842,177 @@ function tapHeartPulse(e) {
 
   spawnBurst(x, y);
 
-  if (heartCount % 10 === 0) {
+  if (heartCount === 100 || heartCount % 100 === 0) {
+    triggerHeart100GrandEvent();
+  } else if (heartCount % 10 === 0) {
     showToast('Nhịp đập đồng điệu 💓', `Hai đứa mình đã cùng nhau gửi ${heartCount} nhịp đập yêu thương!`, '🔥');
     triggerSystemNotification('Trái tim rung động 💓', `Đã đạt ${heartCount} nhịp tim yêu thương!`);
     launchConfetti(25);
   }
+}
+
+function triggerHeart100GrandEvent() {
+  if (isDrawingHeart100) return;
+  isDrawingHeart100 = true;
+
+  const overlay = document.getElementById('heart-100-overlay');
+  const canvas = document.getElementById('heart-draw-canvas');
+  const content = document.getElementById('heart-100-content');
+  if (!overlay || !canvas || !content) return;
+
+  // Reset states
+  content.classList.remove('visible');
+  overlay.classList.add('show');
+  
+  // Set canvas size
+  const W = canvas.width = window.innerWidth;
+  const H = canvas.height = window.innerHeight;
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, W, H);
+
+  // Vibrate mobile and sound
+  vibrateMobile([80, 100, 80]);
+  playTone(440, 'sine', 0.2);
+
+  // Center & scale for heart curve
+  const cx = W / 2;
+  const cy = H * 0.40;
+  const scale = Math.min(W, H) / 34;
+
+  const totalPoints = 300;
+  let currentIdx = 0;
+  const points = [];
+
+  // Generate smooth heart curve points
+  for (let i = 0; i <= totalPoints; i++) {
+    const t = -Math.PI + (i / totalPoints) * 2 * Math.PI;
+    const hx = 16 * Math.pow(Math.sin(t), 3);
+    const hy = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+    points.push({
+      x: cx + hx * scale,
+      y: cy + hy * scale
+    });
+  }
+
+  const sparkles = [];
+
+  function animateDraw() {
+    const step = 4;
+    const end = Math.min(currentIdx + step, totalPoints);
+
+    for (let i = currentIdx; i < end; i++) {
+      const p1 = points[i];
+      const p2 = points[i + 1] || points[i];
+
+      // Draw glowing heart stroke
+      ctx.beginPath();
+      ctx.moveTo(p1.x, p1.y);
+      ctx.lineTo(p2.x, p2.y);
+      ctx.strokeStyle = '#ff4d6d';
+      ctx.lineWidth = 5.5;
+      ctx.lineCap = 'round';
+      ctx.shadowBlur = 24;
+      ctx.shadowColor = '#ff85a1';
+      ctx.stroke();
+
+      // Inner bright highlight
+      ctx.beginPath();
+      ctx.moveTo(p1.x, p1.y);
+      ctx.lineTo(p2.x, p2.y);
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 2;
+      ctx.shadowBlur = 0;
+      ctx.stroke();
+
+      // Spawn sparks
+      if (Math.random() < 0.85) {
+        sparkles.push({
+          x: p2.x,
+          y: p2.y,
+          vx: (Math.random() - 0.5) * 4.5,
+          vy: (Math.random() - 0.5) * 4.5,
+          r: Math.random() * 3 + 1.2,
+          alpha: 1,
+          color: Math.random() < 0.6 ? '#ff85a1' : '#f7c948'
+        });
+      }
+    }
+
+    currentIdx = end;
+
+    // Draw & update sparkle particles
+    for (let j = sparkles.length - 1; j >= 0; j--) {
+      const s = sparkles[j];
+      s.x += s.vx;
+      s.y += s.vy;
+      s.alpha -= 0.035;
+      if (s.alpha <= 0) {
+        sparkles.splice(j, 1);
+        continue;
+      }
+      ctx.save();
+      ctx.globalAlpha = s.alpha;
+      ctx.fillStyle = s.color;
+      ctx.shadowBlur = 10;
+      ctx.shadowColor = s.color;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    if (currentIdx < totalPoints) {
+      heartDrawAnimId = requestAnimationFrame(animateDraw);
+    } else {
+      onHeartDrawFinished(ctx, cx, cy, scale);
+    }
+  }
+
+  heartDrawAnimId = requestAnimationFrame(animateDraw);
+}
+
+function onHeartDrawFinished(ctx, cx, cy, scale) {
+  // Flash & gentle glowing heart fill
+  ctx.save();
+  ctx.beginPath();
+  const t0 = -Math.PI;
+  ctx.moveTo(cx + 16 * Math.pow(Math.sin(t0), 3) * scale, cy - (13 * Math.cos(t0) - 5 * Math.cos(2*t0) - 2 * Math.cos(3*t0) - Math.cos(4*t0)) * scale);
+  for (let i = 1; i <= 300; i++) {
+    const t = -Math.PI + (i / 300) * 2 * Math.PI;
+    const hx = 16 * Math.pow(Math.sin(t), 3);
+    const hy = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+    ctx.lineTo(cx + hx * scale, cy + hy * scale);
+  }
+  ctx.fillStyle = 'rgba(255, 77, 109, 0.18)';
+  ctx.shadowBlur = 40;
+  ctx.shadowColor = '#ff4d6d';
+  ctx.fill();
+  ctx.restore();
+
+  // Reveal "anh yêu emm ❤" content
+  const content = document.getElementById('heart-100-content');
+  content.classList.add('visible');
+
+  // Confetti burst
+  launchConfetti(70);
+
+  // Sound sequence (warm romantic chord progression)
+  playChime();
+  setTimeout(() => playTone(880, 'sine', 0.45), 220);
+
+  // Romantic haptics
+  vibrateMobile([70, 80, 100, 120, 150]);
+
+  // Toast and push
+  showToast('100 Nhịp Đập Yêu Thương! 💖', 'anh yêu emm ❤', '🌹');
+  triggerSystemNotification('Trung Điển YB 💌', 'anh yêu emm ❤ Chúc Ngọc Anh 20/10 ngập tràn hạnh phúc!');
+}
+
+function closeHeart100Overlay() {
+  const overlay = document.getElementById('heart-100-overlay');
+  if (overlay) overlay.classList.remove('show');
+  isDrawingHeart100 = false;
+  if (heartDrawAnimId) cancelAnimationFrame(heartDrawAnimId);
 }
 
 /* Confetti generator */
@@ -1515,9 +2098,9 @@ function buildOrbs() {
 
 function drawBg(t) {
   const g = ctx.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, Math.max(W, H));
-  g.addColorStop(0, '#28001c');
-  g.addColorStop(0.5, '#190010');
-  g.addColorStop(1, '#090007');
+  g.addColorStop(0, 'rgba(40, 0, 28, 0.72)');
+  g.addColorStop(0.5, 'rgba(25, 0, 16, 0.82)');
+  g.addColorStop(1, 'rgba(9, 0, 7, 0.88)');
   ctx.fillStyle = g;
   ctx.fillRect(0, 0, W, H);
 
@@ -1603,6 +2186,36 @@ if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
     });
     card.addEventListener('mouseleave', () => { card.style.transform = ''; });
   });
+}
+/* ═══════════════════════════════════
+   8. AMBIENT SLIDESHOW & PHOTO LIGHTBOX
+═══════════════════════════════════ */
+(function initAmbientSlideshow() {
+  const slides = document.querySelectorAll('.ambient-slide');
+  if (!slides.length) return;
+  let current = 0;
+  setInterval(() => {
+    slides[current].classList.remove('active');
+    current = (current + 1) % slides.length;
+    slides[current].classList.add('active');
+  }, 6500);
+})();
+
+function viewPhoto(src, caption) {
+  const lightbox = document.getElementById('photo-lightbox');
+  const img = document.getElementById('lightbox-img');
+  const cap = document.getElementById('lightbox-caption');
+  if (!lightbox || !img) return;
+  img.src = src;
+  cap.textContent = caption;
+  lightbox.classList.add('show');
+  playTone(523.25, 'sine', 0.15);
+  vibrateMobile([30]);
+}
+
+function closeLightbox() {
+  const lightbox = document.getElementById('photo-lightbox');
+  if (lightbox) lightbox.classList.remove('show');
 }
 </script>
 </body>
